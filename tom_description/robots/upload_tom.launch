@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot" default="full"/>
+
+  <!-- Robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find tom_description)/robots/tom_$(arg robot).urdf.xacro'"/>
+
+  <!-- Joint limits -->
+  <rosparam command="load" file="$(find tom_description)/config/joint_limits.yaml"/>
+</launch>
