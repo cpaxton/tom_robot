@@ -5,40 +5,45 @@
   To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/ or send a letter to
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
-<robot>
+<robot name="tom">
   <property name="M_PI" value="3.1415926535897931" />
   <property name="VELOCITY_LIMIT_SCALE" value="0.6" />
   <property name="DEG2RAD" value="0.01745329251994329577" />
 
-	<!--Base Parameters -->
-	<property name="base_frame_mass" value="10.0" />
+  <!--Base Parameters -->
+  <property name="base_frame_mass" value="250.0" />
 
-	<property name="base_hight" value="0.5" />
+  <property name="base_hight" value="0.4" />
   <property name="base_width" value="0.60" />
   <property name="base_length" value="1.0" />
   <property name="base_collision_offset" value="0.10" />
 
+  <!--Torso Parameters -->
   <property name="torso_hight" value="0.75" />
   <property name="torso_width" value="0.45" />
   <property name="torso_length" value="0.125" />
   <property name="torso_collision_offset" value="0.10" />
 
+  <!--Wheel Parameters -->
   <property name="wheel_radius" value="0.1" />
   <property name="wheel_length" value="0.075" />
 
-	<property name="laser_hight" value="0.05" />
-	<property name="laser_radius" value="0.02" />
+  <!--Sensor Parameters -->
+  <property name="laser_hight" value="0.05" />
+  <property name="laser_radius" value="0.02" />
 
-	<property name="jr3_hight" value="0.05" />
-	<property name="jr3_radius" value="0.035" />
+  <!--Offset Parameters -->
+  <property name="jr3_hight" value="0.05" />
+  <property name="jr3_radius" value="0.035" />
 
-	<property name="arm_joint_y_offset" value="0.225" />
-	<property name="arm_joint_roll_offset" value="2.6061" />
-	<property name="arm_joint_pitch_offset" value="0.6271" />
+  <property name="arm_joint_y_offset" value="0.225" />
+  <property name="arm_joint_roll_offset" value="2.6061" />
+  <property name="arm_joint_pitch_offset" value="0.6271" />
 
-	<property name="adapter_z_offset" value="0.045" />
-	<property name="adapter_joint_x_offset" value="0.045" />
+  <property name="adapter_z_offset" value="0.045" />
+  <property name="adapter_joint_x_offset" value="0.045" />
 
+  <property name="floor_to_base_frame" value="0.5" />
 	
 	
 

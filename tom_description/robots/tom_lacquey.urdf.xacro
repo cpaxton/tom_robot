@@ -14,6 +14,7 @@
 
 	<!--Common definitions -->
 	<xacro:include filename="$(find tom_description)/urdf/common.xacro"/>
+	<xacro:include filename="$(find tom_description)/urdf/materials.urdf.xacro"/>
 	
 	<!-- xacro macros Base -->
 	<xacro:include filename="$(find tom_description)/urdf/base/base.urdf.xacro"/>
@@ -29,61 +30,76 @@
   <!--xacro:include filename="$(find tom_description)/urdf/hand/hands.urdf.xacro"/-->
 	<xacro:include filename="$(find tom_description)/urdf/lacquey/grippers.urdf.xacro"/>
  
-	
+    <!-- Robot namespace for ros_control -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/tom_robot</robotNamespace>
+            <controlPeriod>0.008</controlPeriod>
+        </plugin>
+    </gazebo>
 
 	<!-- robot base, includes base, torso, wheels and logos -->
-	<xacro:tom_base_v0 name="base" />
+    <xacro:tom_base_v0 name="base" />
 
 	<!-- robot head, includes the left camera -->
+
 	<link name="tom_left_camera_link">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-       <box size="0.00 0.00 0.00"/>
-      </geometry>
-      <material name="orange">
-         <color rgba="0.45 0.45 0.45 1.0"/>
-       </material>
-    </visual>
-  </link>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.00 0.00 0.00"/>
+            </geometry>
+        </visual>
+    </link>
   
   
-  <link name="tom_head_link">
-    <visual>
-      <origin rpy="1.57079632679 0 -1.57079632679" xyz="1 1.255 -0.838"/>
-      <geometry>
-        <mesh filename="package://tom_description/meshes/head/head.stl" scale="0.001 0.001 0.001"/>
-      </geometry>
-      <material name="green">
-         <color rgba="0.0 0.8 0.0 1"/>
-       </material>
-    </visual>
-  </link>
+    <link name="tom_head_link">
+        <visual>
+            <origin rpy="1.57079632679 0 -1.57079632679" xyz="1 1.255 -0.838"/>
+            <geometry>
+                <mesh filename="package://tom_description/meshes/head/head.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0.0 0.8 0.0 1"/>
+            </material>
+        </visual>
+        <collision>
+		    <origin rpy="0 0 0" xyz="0 0 0.2"/>
+		    <geometry>
+		        <sphere radius="0.15"/>
+		    </geometry>
+		</collision>
+		<inertial>
+            <origin xyz="0 0 0.2" rpy="0 0 0" />
+            <mass value="1.0"/>
+            <inertia  ixx="0.00001" ixy = "0"          ixz = "0"
+                                         iyy="0.00001" iyz = "0"
+                                                            izz="0.00001"/>
+        </inertial>
+    </link>
+    
+    <gazebo reference="tom_head_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
   
-  <joint name="table_head_joint" type="fixed">
+    <joint name="table_head_joint" type="fixed">
 		<origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="torso_link"/>
-    <child link="tom_head_link"/>
-  </joint>
+        <parent link="torso_link"/>
+        <child link="tom_head_link"/>
+    </joint>
   
   
-  <joint name="tom_left_camera_joint" type="fixed">
-    <origin rpy="-2.43606 -0.193804 -1.648299" xyz="0.075241 0.032279 0.211305"/>
-    <parent link="torso_link"/>
-    <child link="tom_left_camera_link"/>
-  </joint>	
+    <joint name="tom_left_camera_joint" type="fixed">
+        <origin rpy="-2.43606 -0.193804 -1.648299" xyz="0.075241 0.032279 0.211305"/>
+        <parent link="torso_link"/>
+        <child link="tom_left_camera_link"/>
+    </joint>	
 
 	<!-- Arms -->
 	<!-- Right Arm -->
 	<xacro:tom_arm_v0 right_arm="true"/>
 	<!-- Left Arm -->
 	<xacro:tom_arm_v0 right_arm="false"/>
-
-	<!-- Hands -->
-	<!-- Right hand -->
-	<!--xacro:tom_hand_v0 right_hand="true"/-->
-	<!-- Left Hand -->
-	<!--xacro:tom_hand_v0 right_hand="false"/-->
 
 	<xacro:tom_gripper_v0 right_gripper="true"/>
 	<xacro:tom_gripper_v0 right_gripper="false"/>
@@ -92,6 +108,8 @@
 	<xacro:tom_sensors_v0 name="laser" />
 
   <!-- Objects -->
+
+	<!--
 
 	<link name="table_tom_link">
     <visual>
@@ -131,7 +149,7 @@
     <child link="table_tom_link"/>
   </joint>
 
-
+-->
 
 
 

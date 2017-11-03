@@ -9,7 +9,7 @@
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
 
-<robot>
+<robot name="tom">
   <material name="Blue">
     <color rgba="0.0 0.0 0.8 1.0"/>
   </material>

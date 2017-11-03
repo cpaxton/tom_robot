@@ -2,36 +2,41 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tom">
 
 <xacro:macro name="wheel" params="parent prefix reflect *origin">
-  <link name="${prefix}wheel_link">
-    <visual>
-      <geometry>
-        <mesh filename="package://tom_description/meshes/wheels/wheels.dae"/>
-      </geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
-    </visual>
-    <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" /> <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-        <geometry>
-          <cylinder radius="${wheel_radius}" length="${wheel_length}" />
-        </geometry>
-    </collision>
-	 <inertial>
-	 <!--copy from pr2_description, we should use the real values-->
-      <mass value="0.44036" />
-      <origin xyz="0 0 0" />
-      <inertia  ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
-                iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943" />
-    </inertial>
-  </link>
+    <link name="${prefix}wheel_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://tom_description/meshes/wheels/wheels.dae"/>
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+            </geometry>
+        </collision>
+	    <inertial>
+	        <!--copy from pr2_description, we should use the real values-->
+            <mass value="2.6" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
+                      iyy="0.015218160428" iyz="-0.000004273467" izz="0.02" />
+        </inertial>
+    </link>
+    
+    <gazebo reference="${prefix}wheel_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
 
-  <joint name="${prefix}wheel_joint" type="continuous">
-    <parent link="${parent}"/>
-    <child link="${prefix}wheel_link" />
-    <xacro:insert_block name="origin" />
-    <axis xyz="0 0 1" />
-  </joint>
+    <joint name="${prefix}wheel_joint" type="continuous">
+        <parent link="${parent}"/>
+        <child link="${prefix}wheel_link" />
+        <dynamics damping="0.5" friction="0.5"/>
+        <xacro:insert_block name="origin" />
+        <axis xyz="0 0 1" />
+    </joint>
 </xacro:macro>
    
 </robot>

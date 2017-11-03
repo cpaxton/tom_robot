@@ -14,97 +14,101 @@
 	<xacro:macro name="tom_base_v0" params="name">
 		<!--virtual link used with gazebo physics engine-->
 		<!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
-         navigation stack dedpends on this frame -->
-		<link name="${name}_footprint">
-		  <visual>
-		    <origin xyz="0 0 0" rpy="0 0 0" />
-		    <geometry>
-		      <box size="0.01 0.01 0.01" />
-		    </geometry>
-		    
-		    <material name="White" />
-		  </visual>
-		  <collision>
-		    <!-- -->
-		    <origin xyz="0 0 0" rpy="0 0 0" />
-		    <geometry>
-		      <box size="0.001 0.001 0.001" />
-		    </geometry>
-		  </collision>
-		</link>
+         navigation stack dedpends on this frame -->    
+          
+ <!-- Foot link (non inertial) -->        
+         
+    <link name="${name}_footprint"/>
+        
 
-		<joint name="${name}_footprint_joint" type="fixed">
-		  <origin xyz="0 0 0.051" rpy="0 0 0" />
-		  <child link="${name}_link" />
-		  <parent link="${name}_footprint"/>
-		</joint>
+	<joint name="${name}_footprint_joint" type="fixed">
+	<origin xyz="0 0 0" rpy="0 0 0" />
+		<child link="${name}_link" />
+		<parent link="${name}_footprint"/>
+    </joint>
 
-		<link name="${name}_link">
-		 <visual>
-		  <origin xyz="0 0 0" rpy="${90*DEG2RAD} 0 ${90*DEG2RAD}" />
-		   <geometry>
-		     <mesh filename="package://tom_description/meshes/base/item_profile.dae"/>       
-		   </geometry>
-		 </visual>
-		  <collision>
-		    <geometry>
-		      <!--box size="${base_length + base_collision_offset} ${base_width + base_collision_offset} ${base_hight + base_collision_offset}"/-->
-		      <mesh filename="package://tom_description/meshes/base/item_profile.dae"/>
-		    </geometry>
+<!-- Mobile base block  -->
+
+	<link name="${name}_link">
+	
+	    <visual>
 		    <origin xyz="0 0 0" rpy="${90*DEG2RAD} 0 ${90*DEG2RAD}" />
-		    <!--origin xyz="${-(base_length+base_collision_offset)/2.0+0.15} 0 ${-(base_hight + base_collision_offset)/2+0.1}" rpy="0 0 0"/-->
-		  </collision>
-		  <inertial>
-		    <mass value="${base_frame_mass}"/>
-		    <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
-		  </inertial>
-		</link>
-
-		<link name="torso_link">
-		 <visual>
-		  <origin xyz="-0.01614 0 -0.76268" rpy="1.57 0 1.57" />
-		   <geometry>
-		     <mesh filename="package://tom_description/meshes/base/green_parts.dae"/>       
-		   </geometry>
-		 </visual>
-		 <collision>
 		    <geometry>
-		      <!--box size="${torso_length + torso_collision_offset} ${torso_width + torso_collision_offset} ${torso_hight + torso_collision_offset}"/-->
-					<mesh filename="package://tom_description/meshes/base/green_parts.dae"/> 
+		        <mesh filename="package://tom_description/meshes/base/item_profile.dae"/>       
 		    </geometry>
-		    <origin xyz="-0.01614 0 -0.76268" rpy="1.57 0 1.57" />
-		    <!--origin xyz="0.0 0 ${-(torso_hight + torso_collision_offset)/2+0.075}" rpy="0 0 0"/-->
-		  </collision>
-		  <inertial>
-		    <mass value="10"/>
-		    <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
-		  </inertial>
-		</link>
+		    <material name="LightGrey"/>
+        </visual>
+        
+        <collision>
+            <geometry>
+		        <!-- box size="${base_length + base_collision_offset} ${base_width + base_collision_offset} ${base_hight + base_collision_offset}" /-->
+		        <mesh filename="package://tom_description/meshes/base/item_profile_collision.dae" scale="0.001 0.0009 0.001"/>
+		    </geometry>
+		    <origin xyz="0.15 ${(base_hight + base_collision_offset)/2 + 0.1} -0.47" rpy="${90*DEG2RAD} 0 ${-90*DEG2RAD}" />
+        </collision>
+        
+		<inertial>
+		    <origin xyz="-0.4 0 -0.2" />
+		    <mass value="${base_frame_mass}"/>
+		    <inertia ixx="34.82" ixy="0.001" ixz="0.001" iyy="38.20" iyz="0.001" izz="23.54"/>
+	    </inertial>
+	    
+	</link>
+	
+	
+<!-- Torso link -->
 
-		<joint name="${name}_to_torso" type="fixed">
-		  <parent link="${name}_link"/>
-		  <child link="torso_link"/>
-		  <origin xyz="0.01614 0 0.76268"/>
-		</joint>
+	<link name="torso_link">
+	
+	    <visual>
+	        <origin xyz="-0.01614 0 -0.76268" rpy="1.57 0 1.57" />
+	        <geometry>
+	            <mesh filename="package://tom_description/meshes/base/green_parts.dae"/>       
+	        </geometry>
+	        <material name="Green"/>
+	    </visual>
+		
+	    <collision>
+	        <geometry>
+                <mesh filename="package://tom_description/meshes/base/green_parts_collision.dae"/>               
+	        </geometry>
+		    <origin xyz="-0.11 -0.16 -0.8" rpy="${90*DEG2RAD} 0 ${90*DEG2RAD}" />
+        </collision>
+		
+		<inertial>
+		    <origin xyz="0 0 0.44" />
+		    <mass value="25"/>
+		    <inertia ixx="8.9" ixy="0.017" ixz="0.01" iyy="6.37" iyz="2.2" izz="6.33"/>
+		</inertial>
+		
+	</link>
 
-		<!-- Wheels-->
-		<xacro:wheel parent="${name}_link" prefix="l_front_" reflect="1">
-		  <origin xyz="0 0.303 -0.40" rpy="-1.57 0 0" />
-		</xacro:wheel>
+    <joint name="${name}_to_torso" type="fixed">
+        <parent link="${name}_link"/>
+        <child link="torso_link"/>
+		<origin xyz="0.01614 0 0.76268"/>
+	</joint>
 
-	 	<xacro:wheel parent="${name}_link" prefix="l_rear_" reflect="1">
-		  <origin xyz="-0.8115 0.303 -0.40" rpy="-1.57 0 0" />
-		</xacro:wheel>
+	<!-- Wheels-->
 
-		<xacro:wheel parent="${name}_link" prefix="r_front_" reflect="-1">
-		  <origin xyz="0 -0.303 -0.40" rpy="-1.57 0 0" />
-		</xacro:wheel>
+	<xacro:wheel parent="${name}_link" prefix="l_front_" reflect="1">
+	    <origin xyz="0 0.303 -0.40" rpy="-1.57 0 0" />
+	</xacro:wheel>
 
-		<xacro:wheel parent="${name}_link" prefix="r_rear_" reflect="-1">
-		  <origin xyz="-0.8115 -0.303 -0.40" rpy="-1.57 0 0" />
-		</xacro:wheel>
+	<xacro:wheel parent="${name}_link" prefix="l_rear_" reflect="1">
+	    <origin xyz="-0.8115 0.303 -0.40" rpy="-1.57 0 0" />
+	</xacro:wheel>
 
-			<!-- Deco Logos-->
+	<xacro:wheel parent="${name}_link" prefix="r_front_" reflect="-1">
+	    <origin xyz="0 -0.303 -0.40" rpy="-1.57 0 0" />
+	</xacro:wheel>
+
+	<xacro:wheel parent="${name}_link" prefix="r_rear_" reflect="-1">
+	    <origin xyz="-0.8115 -0.303 -0.40" rpy="-1.57 0 0" />
+	</xacro:wheel>
+	
+    <!-- Deco Logos-->
+    	
 	  <link name="ICS_logo_blue_link">
 		 <visual>
 		  <origin xyz="0 0 0" rpy="1.57 0 1.57" />
@@ -146,11 +150,11 @@
 		  <child link="ICS_logo_grey_link"/>
 		  <origin xyz="0 0 0"/>
 		</joint>
+		
+		
+		<!-- xacro macros gazebo-->
+         <xacro:include filename="$(find tom_description)/urdf/base/base.gazebo"/>
+        
 	
-
   </xacro:macro>	
-
-	
-
-
 </robot>

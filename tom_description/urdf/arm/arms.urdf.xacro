@@ -22,26 +22,29 @@
 				<child link="l_base_link"/>
 				<origin xyz="0 ${arm_joint_y_offset} 0" rpy="${arm_joint_roll_offset} ${arm_joint_pitch_offset} -2.6061"/>
 			</joint>
+			
 			<!-- This is the JR3 adapter -->
 			<link name="l_hand_base_adapter_link">
-			 <visual>
-				<origin xyz="0 0 -${adapter_z_offset}" rpy="${M_PI/2} 0 ${M_PI/2}" />
-				 <geometry>
-				  <mesh filename="package://tom_description/meshes/arm/hand_mount.dae"/>    
-				 </geometry>
-			 </visual>
-			 <collision>
+			    <visual>
+				    <origin xyz="0 0 -${adapter_z_offset}" rpy="${M_PI/2} 0 ${M_PI/2}" />
+				    <geometry>
+				        <mesh filename="package://tom_description/meshes/arm/hand_mount.dae"/>    
+				    </geometry>
+			    </visual>
+			    <collision>
 					<origin xyz="0 0 ${-jr3_hight/2}" rpy="0 0 0" /> 
-				  <geometry>
-				  	<cylinder length="${jr3_hight}" radius="${jr3_radius}" />
-				  </geometry>
+				    <geometry>
+				  	    <cylinder length="${jr3_hight}" radius="${jr3_radius}" />
+				    </geometry>
 				</collision>
 			</link>
+			
 			<joint name="l_hand_base_adapter_joint" type="fixed">
 				<parent link="l_ee_link"/>
 				<child link="l_hand_base_adapter_link"/>
 				<origin xyz="${adapter_joint_x_offset} 0 0" rpy="${M_PI/2} 0.785 ${M_PI/2}"/>
 			</joint>
+			
 		</xacro:unless>
 
 		<xacro:if value="${right_arm}">
@@ -71,7 +74,8 @@
 				<parent link="r_ee_link"/>
 				<child link="r_hand_base_adapter_link"/>
 				<origin xyz="${adapter_joint_x_offset} 0 0" rpy="${M_PI/2} 2.356 ${M_PI/2}"/>
-			</joint>	
+			</joint>
+			
 		</xacro:if>
 
   </xacro:macro>	
