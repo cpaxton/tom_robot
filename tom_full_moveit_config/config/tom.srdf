@@ -160,6 +160,7 @@
     <disable_collisions link1="ICS_logo_blue_link" link2="front_laser_scanner_link" reason="Never" />
     <disable_collisions link1="ICS_logo_blue_link" link2="l_base_link" reason="Never" />
     <disable_collisions link1="ICS_logo_blue_link" link2="l_ee_link" reason="Never" />
+    <disable_collisions link1="ICS_logo_blue_link" link2="torso_link" reason="Adjacent" />
     <disable_collisions link1="ICS_logo_blue_link" link2="l_front_wheel_link" reason="Never" />
     <disable_collisions link1="ICS_logo_blue_link" link2="l_hand_link_index_0" reason="Never" />
     <disable_collisions link1="ICS_logo_blue_link" link2="l_hand_link_index_1" reason="Never" />
@@ -242,6 +243,7 @@
     <disable_collisions link1="ICS_logo_grey_link" link2="r_shoulder_link" reason="Never" />
     <disable_collisions link1="ICS_logo_grey_link" link2="r_upper_arm_link" reason="Never" />
     <disable_collisions link1="ICS_logo_grey_link" link2="rear_laser_scanner_link" reason="Never" />
+    <disable_collisions link1="ICS_logo_grey_link" link2="torso_link" reason="Adjacent" />
     <disable_collisions link1="base_footprint" link2="base_link" reason="Adjacent" />
     <disable_collisions link1="base_footprint" link2="front_laser_scanner_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="l_base_link" reason="Never" />
@@ -1461,4 +1463,5 @@
     <disable_collisions link1="r_wrist_2_link" link2="rear_laser_scanner_link" reason="Never" />
     <disable_collisions link1="r_wrist_3_link" link2="rear_laser_scanner_link" reason="Never" />
     <disable_collisions link1="rear_laser_scanner_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="torso_link" link2="tom_head_link" reason="Never" />
 </robot>

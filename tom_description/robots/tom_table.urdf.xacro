@@ -98,7 +98,7 @@
       <material name="blue">
          <color rgba="0.00 0.25 1.0 1.0"/>
        </material>
-    </visual>
+     </visual>
   </link>
   
   <link name="box_tom_link">
@@ -126,11 +126,5 @@
     <parent link="base_footprint"/>
     <child link="table_tom_link"/>
   </joint>
-
-
-
-
-	
-
 
 </robot>
