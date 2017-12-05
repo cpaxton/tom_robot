@@ -91,4 +91,51 @@
 	<!-- Sensors -->
 	<xacro:tom_sensors_v0 name="laser" />
 
+  <!-- Objects -->
+
+	<link name="table_tom_link">
+    <visual>
+      <origin rpy="1.57079632679 0 1.57079632679" xyz="-0.90 -0.91 -0.42"/>
+      <geometry>
+        <mesh filename="package://tom_description/meshes/objects/TOMMTABLE.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue">
+         <color rgba="0.00 0.25 1.0 1.0"/>
+       </material>
+    </visual>
+  </link>
+  
+  <link name="box_tom_link">
+    <visual>
+      <origin rpy="1.57079632679 0 0" xyz="0.55 -0.441 0.255"/>
+      <geometry>
+        <mesh filename="package://tom_description/meshes/objects/TOMMBox.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange">
+         <color rgba="0.92 0.63 0.08 1.0"/>
+       </material>
+     </visual>
+  </link>
+  
+    
+	<joint name="box_tom_joint" type="fixed">
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="box_tom_link"/>
+  </joint>
+  
+  
+	<joint name="table_tom_joint" type="fixed">
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="table_tom_link"/>
+  </joint>
+
+
+
+
+
+	
+
+
 </robot>
