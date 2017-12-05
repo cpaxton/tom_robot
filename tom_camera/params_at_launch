@@ -1,0 +1,2 @@
+<param name="extrinsics" value="$(find <package>)/data/camera_calibration/extrinsics.yml"/>
+<param name="intrinsics" value="$(find <package>)/data/camera_calibration/intrinsics.yml"/>
